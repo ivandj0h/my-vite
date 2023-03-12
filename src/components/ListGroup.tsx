@@ -1,20 +1,27 @@
+import {useState} from "react";
+
 function ListGroup() {
 
     let bigCities = ["New York", "Los Angeles", "Chicago", "Houston"]
-    bigCities = []
+    const [selectedIndex, setSelectedIndex] = useState(-1)
 
-    const getBigCities = () => {
-        return bigCities.length === 0 ? <p>There are no cities in the list.</p> : null
+    function handleClick(e: MouseEvent) {
+        console.log(e)
     }
 
     return (
         <>
             <h1>List Group</h1>
-            {getBigCities()}
+            {bigCities.length === 0 && <p>There are no cities in the list.</p>}
             <ul className="list-group">
-                {bigCities.map((city) => (
-                    <li className="list-group-item" key={city}>{city}</li>)
-                )}
+                {bigCities.map((city, i) => (
+                    <li
+                        className={selectedIndex === i ? "list-group-item active" : "list-group-item"}
+                        key={city}
+                        onClick={() => setSelectedIndex(i)}>{city}
+                    </li>
+                ))
+                }
             </ul>
         </>
     )
